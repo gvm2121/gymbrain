@@ -1,0 +1,124 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    {% comment %} <link rel="stylesheet" type="text/css" href="css/bootstrap.css"> {% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static 'gymbrainapp/bootstrap.css' %}">
+    {% comment %} <link rel="stylesheet" type="text/css" href="css/estilos.css"> {% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static 'gymbrainapp/estilos.css' %}">
+
+    <title>Gimnasio mental</title>
+  </head>
+  <body>
+      <div class="contenedor">
+        <header class="encabezado">
+            <h2>Gimnasio mental!</h2>
+            <p>Entrena tus sumas</p>
+            
+        </header>
+        <!-- <div>
+          <div>
+              <input class="form-check-input" type="checkbox" value="" id="validador_reloj">Quieres hacerlo con reloj</div>
+              <div class="" id="reloj">60</div>
+              <button type="button" class="btn btn-primary" id="empezar">Empezar</button>
+        </div> -->
+                      
+                  <div class="alert alerta" role="alert" id="signal"></div>
+              
+             
+                
+                    <div class="sumando" id="sumando_1"></div>
+                
+          
+             
+                
+                        <div class="sumando">+</div>  
+                        <div class="sumando" id="sumando_2"></div>
+              
+              
+               
+                 
+                    <input class="sumando" type="number" min="0" maxlength="4" max="9999" size="4" id="total" autofocus></input>
+                 
+                
+   
+   
+      
+                  <button type="button" class="btn btn-primary btn-lg btn-block boton" id="boton">Vamos!</button>
+    
+   
+
+          
+        
+      </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script>
+       var total;
+       var resulta;
+       
+      function inicial(){
+      var x = Math.round(Math.random()*1000);
+      var y = Math.round(Math.random()*1000);
+      resulta = document.getElementById("signal");
+      // console.log("resulta dentro de initial",resulta);
+      document.getElementById("sumando_1").innerHTML = x;
+      document.getElementById("sumando_2").innerHTML = y;
+      total = x+y;      
+    };
+    function fade(element) {
+    var op = 1;  // initial opacity
+    var timer = setInterval(function () {
+                      if (op <= 0.1){
+                          clearInterval(timer);
+                          element.style.display = 'none';
+                      }
+                      element.style.opacity = op;
+                      element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+                      op -= op * 0.1;
+                    }, 100);
+                    element.style.display = '';
+              }
+
+
+  
+      function resultado(){
+        var campo = document.getElementById("total");
+        var ingreso = campo.value;
+        if(ingreso==total){
+          resulta.classList.remove('alert-success','alert-danger');
+          resulta.classList.add('alert-success');
+          resulta.innerHTML="Correcto!";
+          fade(resulta);
+          // console.log("correcto");
+          // console.log(resulta);
+        }
+        else{
+          resulta.classList.remove('alert-success','alert-danger');
+          resulta.classList.add('alert-danger');
+          resulta.innerHTML="Error! ..." + String(total);
+          fade(resulta);
+          // console.log("INcorrecto");
+          // console.log(resulta);
+        }
+        inicial();
+        campo.value="";
+        campo.focus();
+                
+        };
+
+        document.getElementById("boton").addEventListener("click",resultado);
+        
+        inicial();
+        
+      </script>
+  </body>
+</html>
